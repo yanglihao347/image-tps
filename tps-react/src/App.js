@@ -6,39 +6,41 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       list: [],
       marker: '',
       pageNo: 1,
       total: 0,
       isLoading: true,
-    }
+    };
   }
 
   componentDidMount() {
-    this.getList(1,20);
+    // this.getList(1,20);
   }
 
-  getList(pageNo, pageSize) {
-    axios.get('/api/tps/list', {
-      params: {
-        pageNo,
-        pageSize
-      }
-    }).then((res) => {
-      this.setState({
-        list: res?.data?.data,
-        total: res?.data?.total,
-        isLoading: false
+  getList = (pageNo, pageSize) => {
+    axios
+      .get('/api/tps/list', {
+        params: {
+          pageNo,
+          pageSize,
+        },
       })
-    }).catch((e) => {
-      console.log(e,'=======errr')
-    })
-  }
+      .then((res) => {
+        this.setState({
+          list: res?.data?.data,
+          total: res?.data?.total,
+          isLoading: false,
+        });
+      })
+      .catch((e) => {
+        console.log(e, '=======errr');
+      });
+  };
 
   render() {
-
     const { list } = this.state;
     const _this = this;
 
@@ -48,23 +50,48 @@ class App extends React.Component {
       headers: {
         authorization: 'authorization-text',
       },
-      onChange(info) {
-        console.log(info);
+      data: {
+        groupId: 'testgroup',
+      },
+      beforeUpload: (file) => {
+        console.log(file);
+        var fileReader = new FileReader();
+        let width = 0;
+        let height = 0;
+        fileReader.onload = (e) => {
+          var imgData = e.target.result; //获取图片的文件流
+          //通过Image 对象去加载图片
+          var image = new Image();
+          image.onload = () => {
+            width = image.width;
+            height = image.height;
+            console.log(width, height);
+            if (width !== height) {
+              console.log('图片比例不一致');
+              return;
+            }
+          };
+          image.src = imgData;
+        };
+        fileReader.readAsDataURL(file);
+      },
+      onChange: (info) => {
+        // console.log(info);
         // if (info.file.status !== 'uploading') {
         //   console.log(info.file, info.fileList, '=======ing');
         // }
         if (info.file.status === 'done') {
-          this.setState({
+          _this.setState({
             isLoading: true,
             pageNo: 1,
-          })
-          _this.getList(1,20);
+          });
+          // _this.getList(1, 20);
         } else if (info.file.status === 'error') {
           console.error(`${info.file.name} file upload failed.`);
         }
       },
     };
-  
+
     return (
       <div className="App">
         <header className="App-header">
@@ -72,18 +99,15 @@ class App extends React.Component {
             <Button>点击上传</Button>
           </Upload>
           <div className="img-list">
-            {
-              list.map((item) => {
-
-                return (
-                  <CopyToClipboard text={item.link} className="clipboard">
-                    <div>
-                      <img src={item.link} />
-                    </div>
-                  </CopyToClipboard>
-                )
-              })
-            }
+            {list.map((item) => {
+              return (
+                <CopyToClipboard text={item.link} className="clipboard">
+                  <div>
+                    <img src={item.link} />
+                  </div>
+                </CopyToClipboard>
+              );
+            })}
           </div>
           <Pagination
             current={this.state.pageNo}
@@ -93,19 +117,16 @@ class App extends React.Component {
             onChange={(page, pageSize) => {
               this.setState({
                 isLoading: true,
-                pageNo: page
-              })
+                pageNo: page,
+              });
               this.getList(page, 20);
-              
             }}
             total={this.state.total}
           />
         </header>
       </div>
     );
-
   }
-  
 }
 
 export default App;

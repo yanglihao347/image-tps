@@ -10,7 +10,10 @@ node_modules
 
 # production
 build
-config/secret.js
+tps-node/config/qiniuSecret.js
+tps-node/config/aliyunSecret.js
+tps-node/config/mysql.js
+uploads/
 
 # misc
 .DS_Store
