@@ -1,5 +1,7 @@
 const OSS = require('ali-oss');
+const sizeof = require('image-size');
 const path = require('path');
+const fs = require('fs');
 const { accessKeyId, accessKeySecret, link } = require('../config/index');
 
 const client = new OSS({
@@ -24,20 +26,24 @@ const getList = (pageNo, pageSize) => {
   });
 };
 
-const uploadCloud = (filename) => {
+const uploadCloud = async (file) => {
+  const { originalname, filename, size, mimetype } = file;
+  fs.renameSync('uploads/' + filename, 'uploads/' + originalname);
+  const localFile = path.normalize('./uploads/' + originalname);
+  const filebody = await sizeof(localFile);
+  const { width, height } = filebody;
   client.useBucket('test002-0906');
-  const localFile = './uploads/' + filename;
-  return new Promise((resolve, reject) => {
-    // client.put(filename, path.normalize(localFile)).then((result) => {
-    //   const { url } = result;
-    //   resolve({
-    //     data: result,
-    //   });
-    // });
-    resolve({
-      data: 1,
-    });
-  });
+  const result = await client.put(`${filename}-${width}-${height}.${mimetype.split('/')[1]}`, localFile);
+  const { url } = result;
+  console.log(result);
+  return {
+    width,
+    height,
+    url,
+    size,
+    mimetype,
+    originalname
+  };
 };
 
 module.exports = {

@@ -13,6 +13,7 @@ class App extends React.Component {
       pageNo: 1,
       total: 0,
       isLoading: true,
+      uploadParams: {}
     };
   }
 
@@ -41,7 +42,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { list } = this.state;
+    const { list, uploadParams } = this.state;
     const _this = this;
 
     const props = {
@@ -50,9 +51,7 @@ class App extends React.Component {
       headers: {
         authorization: 'authorization-text',
       },
-      data: {
-        groupId: 'testgroup',
-      },
+      data: uploadParams,
       beforeUpload: (file) => {
         console.log(file);
         var fileReader = new FileReader();
@@ -66,10 +65,17 @@ class App extends React.Component {
             width = image.width;
             height = image.height;
             console.log(width, height);
-            if (width !== height) {
-              console.log('图片比例不一致');
-              return;
-            }
+            this.setState({
+              uploadParams: {
+                width,
+                height,
+                // size
+              }
+            })
+            // if (width !== height) {
+            //   console.log('图片比例不一致');
+            //   return;
+            // }
           };
           image.src = imgData;
         };
