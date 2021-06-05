@@ -13,6 +13,7 @@ build
 tps-node/config/qiniuSecret.js
 tps-node/config/aliyunSecret.js
 tps-node/config/mysql.js
+tps-node/utils/cryp.js
 uploads/
 
 # misc

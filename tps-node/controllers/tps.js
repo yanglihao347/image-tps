@@ -2,6 +2,7 @@ const OSS = require('ali-oss');
 const sizeof = require('image-size');
 const path = require('path');
 const fs = require('fs');
+const { exec } = require('../mysql/index');
 const { accessKeyId, accessKeySecret, link } = require('../config/index');
 
 const client = new OSS({
@@ -10,20 +11,25 @@ const client = new OSS({
   accessKeySecret,
 });
 
-const getList = (pageNo, pageSize) => {
+const getList = async (pageNo, pageSize) => {
   client.useBucket('test002-0906');
-
-  return new Promise((resolve, reject) => {
-    client
-      .list({
-        'max-keys': 5,
-      })
-      .then((result) => {
-        resolve({
-          data: result,
-        });
-      });
-  });
+  const sql = `select * from images_table;`;
+  const result = await exec(sql);
+  // result.map((item) => {
+  //   item.url = item.img_url;
+  // })
+  return result;
+  // return new Promise((resolve, reject) => {
+  //   client
+  //     .list({
+  //       'max-keys': 5,
+  //     })
+  //     .then((result) => {
+  //       resolve({
+  //         data: result,
+  //       });
+  //     });
+  // });
 };
 
 const uploadCloud = async (file) => {
@@ -33,16 +39,23 @@ const uploadCloud = async (file) => {
   const filebody = await sizeof(localFile);
   const { width, height } = filebody;
   client.useBucket('test002-0906');
-  const result = await client.put(`${filename}-${width}-${height}.${mimetype.split('/')[1]}`, localFile);
+  const newName = `${filename}-${width}-${height}.${mimetype.split('/')[1]}`;
+  const result = await client.put(newName, localFile);
   const { url } = result;
-  console.log(result);
+  const sql = `insert into images_table
+  (img_url, file_name, original_name, upload_time, file_size, image_width, image_height, mimetype, upload_user)
+  values
+  ('${url}', '${newName}', '${originalname}', '${Date.now()}', ${size}, ${width}, ${height}, '${mimetype}', 'test')`;
+  const res = await exec(sql);
+  console.log(res);
   return {
     width,
     height,
     url,
     size,
     mimetype,
-    originalname
+    originalname,
+    filename: newName
   };
 };
 
