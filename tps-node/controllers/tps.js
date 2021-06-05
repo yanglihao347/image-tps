@@ -11,9 +11,9 @@ const client = new OSS({
   accessKeySecret,
 });
 
-const getList = async (pageNo, pageSize) => {
+const getList = async (pageNo, pageSize, username) => {
   client.useBucket('test002-0906');
-  const sql = `select * from images_table;`;
+  const sql = `select * from images_table where upload_user='${username}';`;
   const result = await exec(sql);
   // result.map((item) => {
   //   item.url = item.img_url;
@@ -32,7 +32,7 @@ const getList = async (pageNo, pageSize) => {
   // });
 };
 
-const uploadCloud = async (file) => {
+const uploadCloud = async (file, username) => {
   const { originalname, filename, size, mimetype } = file;
   fs.renameSync('uploads/' + filename, 'uploads/' + originalname);
   const localFile = path.normalize('./uploads/' + originalname);
@@ -45,7 +45,7 @@ const uploadCloud = async (file) => {
   const sql = `insert into images_table
   (img_url, file_name, original_name, upload_time, file_size, image_width, image_height, mimetype, upload_user)
   values
-  ('${url}', '${newName}', '${originalname}', '${Date.now()}', ${size}, ${width}, ${height}, '${mimetype}', 'test')`;
+  ('${url}', '${newName}', '${originalname}', '${Date.now()}', ${size}, ${width}, ${height}, '${mimetype}', '${username}')`;
   const res = await exec(sql);
   console.log(res);
   return {

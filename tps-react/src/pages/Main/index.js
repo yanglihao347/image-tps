@@ -100,6 +100,12 @@ class Main extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <Button onClick={() => {
+            request.get('/api/users/logout').then((res) => {
+              console.log(res);
+              this.props.history.replace('/login');
+            });
+          }}>退出登录</Button>
           <Upload {...props}>
             <Button>点击上传</Button>
           </Upload>

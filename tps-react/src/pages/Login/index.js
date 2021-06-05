@@ -44,6 +44,14 @@ class Login extends Component {
           }
         })
       }}>登录</Button>
+      <Button onClick={() => {
+        request.post('/api/users/register', { username, password }).then((res) => {
+          console.log(res);
+          if (res.code === 200) {
+            this.props.history.replace('/');
+          }
+        })
+      }}>注册</Button>
     </div>);
   }
 }
