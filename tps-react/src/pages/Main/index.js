@@ -10,6 +10,8 @@ import request from '../../utils/request';
 import styles from './index.module.css';
 import ImageCard from './components/ImageCard';
 
+const { Dragger } = Upload;
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -58,6 +60,7 @@ class Main extends React.Component {
           isLoading: true
         })
       },
+      className: styles['drag-container'],
       onChange: (info) => {
         // console.log(info);
         // if (info.file.status !== 'uploading') {
@@ -89,32 +92,12 @@ class Main extends React.Component {
             >退出登录</span>
           </div>
           <div className={styles['upload-container']}>
-            <Upload {...props}>
-              <button
-                className={isIn ? styles['upload-btn-active'] : styles['upload-btn']}
-                // onMouseOver={() => {
-                //   console.log('over');
-                // }}
-                // onMouseOut={() => {
-                //   console.log('out');
-                // }}
-                onMouseEnter={() => {
-                  this.setState({
-                    isIn: true
-                  })
-                }}
-                onMouseLeave={() => {
-                  this.setState({
-                    isIn: false
-                  })
-                }}
-              >
+            <Dragger {...props}>
                 <div>
-                  点击上传
+                  点击或拖拽至此上传
                 </div>
                 <div>仅支持上传 jpg / png / jpeg / webp / git 格式的图片</div>
-              </button>
-            </Upload>
+            </Dragger>
           </div>
           <div className={styles['gallery-container']}>
             <div className={styles['img-list']}>

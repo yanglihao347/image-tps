@@ -2,6 +2,7 @@
   width: 100%;
   min-height: 100vh;
   background: #defbf8;
+  padding-top: 20px;
 }
 
 .main-container {
@@ -12,12 +13,12 @@
 
 .header-container {
   position: relative;
-  height: 100px;
 }
 
 .header {
   font-size: 48px;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .logout-btn {
@@ -30,30 +31,18 @@
 .upload-container {
   position: relative;
   height: 200px;
+  margin-bottom: 50px;
 }
 
-.upload-btn {
-  cursor: pointer;
-  width: 500px;
-  height: 100px;
+.upload-container .drag-container {
+  width: 800px;
+  height: 200px;
   border: none;
   border-radius: 20px;
   position: absolute;
   left: 50%;
-  margin-left: -250px;
+  margin-left: -400px;
   background: #68d6cc;
-}
-
-.upload-btn-active {
-  cursor: pointer;
-  width: 500px;
-  height: 100px;
-  border: none;
-  border-radius: 20px;
-  position: absolute;
-  left: 50%;
-  margin-left: -250px;
-  background: #c2fbf5;
 }
 
 .gallery-container {
