@@ -15,8 +15,7 @@ class Main extends React.Component {
       marker: '',
       pageNo: 1,
       total: 1,
-      isLoading: true,
-      uploadParams: {}
+      isLoading: true
     };
   }
 
@@ -44,12 +43,18 @@ class Main extends React.Component {
   };
 
   render() {
-    const { list, uploadParams } = this.state;
+    const { list } = this.state;
     const _this = this;
 
     const props = {
       name: 'file',
       action: '/api/tps/upload',
+      // fileList: [],
+      beforeUpload: () => {
+        this.setState({
+          isLoading: true
+        })
+      },
       onChange: (info) => {
         // console.log(info);
         // if (info.file.status !== 'uploading') {
