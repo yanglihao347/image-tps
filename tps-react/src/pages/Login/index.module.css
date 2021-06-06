@@ -1,0 +1,35 @@
+.page-wrap {
+  width: 100%;
+  min-height: 100vh;
+  background: #defbf8;
+  padding-top: 200px;
+}
+
+.main-container {
+  width: 500px;
+  height: 400px;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-title {
+  font-size: 30px;
+  margin: 20px 0 40px;
+}
+
+.username-input {
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.password-input {
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.login-btn {
+  width: 300px;
+}

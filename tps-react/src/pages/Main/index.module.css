@@ -1,0 +1,85 @@
+.page-wrap {
+  width: 100%;
+  min-height: 100vh;
+  background: #defbf8;
+}
+
+.main-container {
+  width: 1000px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.header-container {
+  position: relative;
+  height: 100px;
+}
+
+.header {
+  font-size: 48px;
+  text-align: center;
+}
+
+.logout-btn {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.upload-container {
+  position: relative;
+  height: 200px;
+}
+
+.upload-btn {
+  cursor: pointer;
+  width: 500px;
+  height: 100px;
+  border: none;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  background: #68d6cc;
+}
+
+.upload-btn-active {
+  cursor: pointer;
+  width: 500px;
+  height: 100px;
+  border: none;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  margin-left: -250px;
+  background: #c2fbf5;
+}
+
+.gallery-container {
+  text-align: center;
+  background: #fff;
+  padding: 20px 50px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.img-list {
+  
+}
+
+.img-list img {
+  width: 100px;
+}
+
+.clipboard {
+  cursor: pointer;
+  border: 1px solid #eee;
+  padding: 10px;
+  margin: 5px 15px;
+  width: 150px;
+  height: 150px;
+  float: left;
+}

@@ -1,11 +1,14 @@
 import React from 'react';
-import '../../App.css';
+// import '../../App.css';
 import { Upload, Button, Pagination } from 'antd';
-import request from '../../utils/request';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
   withRouter,
 } from "react-router-dom";
+
+import request from '../../utils/request';
+import styles from './index.module.css';
+import ImageCard from './components/ImageCard';
 
 class Main extends React.Component {
   constructor(props) {
@@ -15,12 +18,13 @@ class Main extends React.Component {
       marker: '',
       pageNo: 1,
       total: 1,
-      isLoading: true
+      isLoading: true,
+      isIn: false
     };
   }
 
   componentDidMount() {
-    this.getList(1,20);
+    this.getList(1,10);
     console.log('=====this.props', this.props);
   }
 
@@ -43,13 +47,12 @@ class Main extends React.Component {
   };
 
   render() {
-    const { list } = this.state;
+    const { list, isIn } = this.state;
     const _this = this;
 
     const props = {
       name: 'file',
       action: '/api/tps/upload',
-      // fileList: [],
       beforeUpload: () => {
         this.setState({
           isLoading: true
@@ -64,7 +67,7 @@ class Main extends React.Component {
           _this.setState({
             pageNo: 1,
           });
-          _this.getList(1, 20);
+          _this.getList(1, 10);
         } else if (info.file.status === 'error') {
           console.error(`${info.file.name} file upload failed.`);
         }
@@ -72,43 +75,69 @@ class Main extends React.Component {
     };
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <Button onClick={() => {
-            request.get('/api/users/logout').then((res) => {
-              console.log(res);
-              this.props.history.replace('/login');
-            });
-          }}>退出登录</Button>
-          <Upload {...props}>
-            <Button>点击上传</Button>
-          </Upload>
-          <div className="img-list">
-            {list.map((item) => {
-              return (
-                <CopyToClipboard text={item.img_url} className="clipboard">
-                  <div>
-                    <img src={item.img_url} />
-                  </div>
-                </CopyToClipboard>
-              );
-            })}
+      <div className={styles['page-wrap']}>
+        <div className={styles['main-container']}>
+          <div className={styles['header-container']}>
+            <h3 className={styles['header']}>TPS图床</h3>
+            <span
+              className={styles['logout-btn']}
+              onClick={() => {
+                request.get('/api/users/logout').then((res) => {
+                  this.props.history.replace('/login');
+                });
+              }}
+            >退出登录</span>
           </div>
-          <Pagination
-            current={this.state.pageNo}
-            pageSize={20}
-            showSizeChanger={false}
-            disabled={this.state.isLoading}
-            onChange={(page, pageSize) => {
-              this.setState({
-                isLoading: true,
-                pageNo: page,
-              });
-              this.getList(page, 20);
-            }}
-            total={this.state.total}
-          />
-        </header>
+          <div className={styles['upload-container']}>
+            <Upload {...props}>
+              <button
+                className={isIn ? styles['upload-btn-active'] : styles['upload-btn']}
+                // onMouseOver={() => {
+                //   console.log('over');
+                // }}
+                // onMouseOut={() => {
+                //   console.log('out');
+                // }}
+                onMouseEnter={() => {
+                  this.setState({
+                    isIn: true
+                  })
+                }}
+                onMouseLeave={() => {
+                  this.setState({
+                    isIn: false
+                  })
+                }}
+              >
+                <div>
+                  点击上传
+                </div>
+                <div>仅支持上传 jpg / png / jpeg / webp / git 格式的图片</div>
+              </button>
+            </Upload>
+          </div>
+          <div className={styles['gallery-container']}>
+            <div className={styles['img-list']}>
+              {list.map((item) => {
+                return <ImageCard item={item} />;
+              })}
+            </div>
+            <Pagination
+              current={this.state.pageNo}
+              pageSize={10}
+              showSizeChanger={false}
+              disabled={this.state.isLoading}
+              onChange={(page, pageSize) => {
+                this.setState({
+                  isLoading: true,
+                  pageNo: page,
+                });
+                this.getList(page, 10);
+              }}
+              total={this.state.total}
+            />
+          </div>
+        </div>
       </div>
     );
   }
