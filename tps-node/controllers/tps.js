@@ -13,23 +13,17 @@ const client = new OSS({
 
 const getList = async (pageNo, pageSize, username) => {
   client.useBucket('test002-0906');
-  const sql = `select * from images_table where upload_user='${username}';`;
-  const result = await exec(sql);
-  // result.map((item) => {
-  //   item.url = item.img_url;
-  // })
-  return result;
-  // return new Promise((resolve, reject) => {
-  //   client
-  //     .list({
-  //       'max-keys': 5,
-  //     })
-  //     .then((result) => {
-  //       resolve({
-  //         data: result,
-  //       });
-  //     });
-  // });
+
+  const totalSql = `select count(*) from images_table where upload_user='${username}';`;
+  const listSql = `select * from images_table where upload_user='${username}' limit ${pageSize} offset ${(pageNo - 1) * pageSize};`;
+
+  const total = await exec(totalSql);
+  const list = await exec(listSql);
+  
+  return {
+    total: total[0]['count(*)'],
+    list
+  };
 };
 
 const uploadCloud = async (file, username) => {

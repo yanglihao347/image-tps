@@ -14,7 +14,7 @@ class Main extends React.Component {
       list: [],
       marker: '',
       pageNo: 1,
-      total: 0,
+      total: 1,
       isLoading: true,
       uploadParams: {}
     };
@@ -34,8 +34,11 @@ class Main extends React.Component {
       if(res.code === 301) {
         this.props.history.push('/login')
       }
+      const { list = [], total } = res.data;
       this.setState({
-        list: res.data
+        list,
+        total,
+        isLoading: false,
       })
     })
   };
@@ -47,39 +50,6 @@ class Main extends React.Component {
     const props = {
       name: 'file',
       action: '/api/tps/upload',
-      headers: {
-        authorization: 'authorization-text',
-      },
-      data: uploadParams,
-      beforeUpload: (file) => {
-        console.log(file);
-        var fileReader = new FileReader();
-        let width = 0;
-        let height = 0;
-        fileReader.onload = (e) => {
-          var imgData = e.target.result; //获取图片的文件流
-          //通过Image 对象去加载图片
-          var image = new Image();
-          image.onload = () => {
-            width = image.width;
-            height = image.height;
-            console.log(width, height);
-            this.setState({
-              uploadParams: {
-                width,
-                height,
-                // size
-              }
-            })
-            // if (width !== height) {
-            //   console.log('图片比例不一致');
-            //   return;
-            // }
-          };
-          image.src = imgData;
-        };
-        fileReader.readAsDataURL(file);
-      },
       onChange: (info) => {
         // console.log(info);
         // if (info.file.status !== 'uploading') {
@@ -87,7 +57,6 @@ class Main extends React.Component {
         // }
         if (info.file.status === 'done') {
           _this.setState({
-            isLoading: true,
             pageNo: 1,
           });
           _this.getList(1, 20);

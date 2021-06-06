@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const get = (api, params) => {
-  return axios.get(api, params).then((res) => {
+  return axios.get(api, { params }).then((res) => {
     if (res.status === 200) {
       return res.data;
       // if (res.data.success === true) {
