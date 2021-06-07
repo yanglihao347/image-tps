@@ -15,7 +15,7 @@ const register = async (username, password) => {
   const result = await exec(sql2);
   console.log(result);
   return { username };
-}
+};
 
 const login = async (username, password) => {
   username = escape(username);
@@ -25,9 +25,9 @@ const login = async (username, password) => {
   const sql = `select username from users_table where username=${username} and passwd=${password};`;
   const result = await exec(sql);
   return result[0] || {};
-}
+};
 
 module.exports = {
   login,
-  register
-}
+  register,
+};

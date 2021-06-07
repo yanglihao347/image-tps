@@ -2,9 +2,7 @@ import React from 'react';
 // import '../../App.css';
 import { Upload, Button, Pagination } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import {
-  withRouter,
-} from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 import request from '../../utils/request';
 import styles from './index.module.css';
@@ -21,31 +19,33 @@ class Main extends React.Component {
       pageNo: 1,
       total: 1,
       isLoading: true,
-      isIn: false
+      isIn: false,
     };
   }
 
   componentDidMount() {
-    this.getList(1,10);
+    this.getList(1, 10);
     console.log('=====this.props', this.props);
   }
 
   getList = (pageNo, pageSize) => {
-    request.get('/api/tps/list', {
-      pageNo,
-      pageSize,
-    }).then((res) => {
-      console.log('get list', res);
-      if(res.code === 301) {
-        this.props.history.push('/login')
-      }
-      const { list = [], total } = res.data;
-      this.setState({
-        list,
-        total,
-        isLoading: false,
+    request
+      .get('/api/tps/list', {
+        pageNo,
+        pageSize,
       })
-    })
+      .then((res) => {
+        console.log('get list', res);
+        if (res.code === 301) {
+          this.props.history.push('/login');
+        }
+        const { list = [], total } = res.data || {};
+        this.setState({
+          list,
+          total,
+          isLoading: false,
+        });
+      });
   };
 
   render() {
@@ -57,8 +57,8 @@ class Main extends React.Component {
       action: '/api/tps/upload',
       beforeUpload: () => {
         this.setState({
-          isLoading: true
-        })
+          isLoading: true,
+        });
       },
       className: styles['drag-container'],
       onChange: (info) => {
@@ -89,14 +89,14 @@ class Main extends React.Component {
                   this.props.history.replace('/login');
                 });
               }}
-            >退出登录</span>
+            >
+              退出登录
+            </span>
           </div>
           <div className={styles['upload-container']}>
             <Dragger {...props}>
-                <div>
-                  点击或拖拽至此上传
-                </div>
-                <div>仅支持上传 jpg / png / jpeg / webp / git 格式的图片</div>
+              <div>点击或拖拽至此上传</div>
+              <div>仅支持上传 jpg / png / jpeg / webp / git 格式的图片</div>
             </Dragger>
           </div>
           <div className={styles['gallery-container']}>
