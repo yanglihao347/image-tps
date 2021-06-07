@@ -6,9 +6,7 @@ import styles from '../index.module.css';
 class ImageCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
+    this.state = {};
   }
   render() {
     const { item } = this.props;

@@ -3,7 +3,7 @@ const { login, register } = require('../controllers/users');
 const { SuccessModel, FailModel } = require('../model/resModel');
 var router = express.Router();
 
-router.post('/register', function(req, res, next) {
+router.post('/register', function (req, res, next) {
   const { username, password } = req.body;
   register(username, password).then((result) => {
     if (result.username === username) {
@@ -12,10 +12,10 @@ router.post('/register', function(req, res, next) {
     } else {
       res.json(new FailModel('注册失败'));
     }
-  })
+  });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', function (req, res, next) {
   const { username, password } = req.body;
   login(username, password).then((result) => {
     if (result.username === username) {
@@ -24,10 +24,10 @@ router.post('/login', function(req, res, next) {
     } else {
       res.json(new FailModel('登录失败'));
     }
-  })
+  });
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function (req, res, next) {
   res.clearCookie('username');
   res.json(new SuccessModel('退出成功'));
 });

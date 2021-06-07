@@ -1,7 +1,6 @@
-
 class BaseModel {
   constructor(data, message) {
-    if (typeof(data) === 'string') {
+    if (typeof data === 'string') {
       this.message = data;
       data = null;
       message = null;
@@ -34,4 +33,4 @@ class FailModel extends BaseModel {
 module.exports = {
   SuccessModel,
   FailModel,
-}
+};

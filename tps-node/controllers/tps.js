@@ -15,14 +15,16 @@ const getList = async (pageNo, pageSize, username) => {
   client.useBucket('test002-0906');
 
   const totalSql = `select count(*) from images_table where upload_user='${username}';`;
-  const listSql = `select * from images_table where upload_user='${username}' order by img_id desc limit ${pageSize} offset ${(pageNo - 1) * pageSize};`;
+  const listSql = `select * from images_table where upload_user='${username}' order by img_id desc limit ${pageSize} offset ${
+    (pageNo - 1) * pageSize
+  };`;
 
   const total = await exec(totalSql);
   const list = await exec(listSql);
-  
+
   return {
     total: total[0]['count(*)'],
-    list
+    list,
   };
 };
 
@@ -49,7 +51,7 @@ const uploadCloud = async (file, username) => {
     size,
     mimetype,
     originalname,
-    filename: newName
+    filename: newName,
   };
 };
 

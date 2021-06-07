@@ -10,7 +10,7 @@ const get = (api, params) => {
       //   // history.push('/login');
       // }
     }
-  })
+  });
 };
 
 const post = (api, params) => {
@@ -18,10 +18,10 @@ const post = (api, params) => {
     if (res.status === 200) {
       return res.data;
     }
-  })
+  });
 };
 
 export default {
   get,
-  post
+  post,
 };
