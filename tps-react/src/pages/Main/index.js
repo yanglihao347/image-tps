@@ -39,12 +39,23 @@ class Main extends React.Component {
           this.props.history.push('/login');
         }
         const { list = [], total } = res.data || {};
+        list.map((item) => {
+          item.checked = false;
+        });
         this.setState({
           list,
           total,
           isLoading: false,
         });
       });
+  };
+
+  chooseCheck = (index, checked) => {
+    const { list } = this.state;
+    list[index].checked = checked;
+    this.setState({
+      list,
+    });
   };
 
   render() {
@@ -100,8 +111,14 @@ class Main extends React.Component {
           </div>
           <div className={styles['gallery-container']}>
             <div className={styles['img-list']}>
-              {list.map((item) => {
-                return <ImageCard item={item} />;
+              {list.map((item, index) => {
+                return (
+                  <ImageCard
+                    chooseCheck={this.chooseCheck}
+                    index={index}
+                    item={item}
+                  />
+                );
               })}
             </div>
             <Pagination
