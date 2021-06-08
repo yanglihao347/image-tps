@@ -76,3 +76,9 @@
 .height-image {
   height: 100px;
 }
+
+.check-icon {
+  font-family: 'iconfont';
+  font-size: 16px;
+  color: #f00;
+}

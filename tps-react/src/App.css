@@ -1,2 +1,14 @@
 @import '~antd/dist/antd.css';
 
+@font-face {
+  font-family: 'iconfont';  /* Project id 2600609 */
+  src: url('//at.alicdn.com/t/font_2600609_ghvm0vkz61k.woff2?t=1623143192584') format('woff2'),
+       url('//at.alicdn.com/t/font_2600609_ghvm0vkz61k.woff?t=1623143192584') format('woff'),
+       url('//at.alicdn.com/t/font_2600609_ghvm0vkz61k.ttf?t=1623143192584') format('truetype');
+}
+
+.iconfont {
+  font-family: 'iconfont';
+  font-size: 16px;
+  color: #000;
+}

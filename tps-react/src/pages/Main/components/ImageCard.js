@@ -41,6 +41,7 @@ class ImageCard extends Component {
       <CopyToClipboard text={item.img_url} className={styles['img-container']}>
         <div className={styles['img-container']}>
           <img className={this.renderSize()} src={item.img_url} />
+          <span className={styles['check-icon']}>&#xe617;</span>
         </div>
       </CopyToClipboard>
     );

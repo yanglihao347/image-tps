@@ -25,7 +25,6 @@ class Main extends React.Component {
 
   componentDidMount() {
     this.getList(1, 10);
-    console.log('=====this.props', this.props);
   }
 
   getList = (pageNo, pageSize) => {
