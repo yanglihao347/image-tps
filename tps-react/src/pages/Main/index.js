@@ -58,6 +58,10 @@ class Main extends React.Component {
     });
   };
 
+  deleteImage = (img_id) => {
+    console.log('deleteImage');
+  };
+
   render() {
     const { list, isIn } = this.state;
     const _this = this;
@@ -114,7 +118,9 @@ class Main extends React.Component {
               {list.map((item, index) => {
                 return (
                   <ImageCard
+                    key={item.file_name}
                     chooseCheck={this.chooseCheck}
+                    deleteImage={this.deleteImage}
                     index={index}
                     item={item}
                   />

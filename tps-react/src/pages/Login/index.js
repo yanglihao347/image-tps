@@ -13,6 +13,16 @@ class Login extends Component {
       password: '',
     };
   }
+
+  login = () => {
+    const { username, password } = this.state;
+    request.post('/api/users/login', { username, password }).then((res) => {
+      console.log('====login res', res);
+      if (res.code === 200) {
+        this.props.history.replace('/');
+      }
+    });
+  };
   render() {
     const { username, password } = this.state;
     return (
@@ -38,20 +48,9 @@ class Login extends Component {
                 password: e.target.value,
               });
             }}
+            onPressEnter={this.login}
           />
-          <Button
-            className={styles['login-btn']}
-            onClick={() => {
-              request
-                .post('/api/users/login', { username, password })
-                .then((res) => {
-                  console.log('====login res', res);
-                  if (res.code === 200) {
-                    this.props.history.replace('/');
-                  }
-                });
-            }}
-          >
+          <Button className={styles['login-btn']} onClick={this.login}>
             登录
           </Button>
         </div>

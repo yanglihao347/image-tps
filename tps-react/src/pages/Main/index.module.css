@@ -61,12 +61,15 @@
   float: left;
   width: 150px;
   cursor: pointer;
-  border: 1px solid #eee;
+  border: 2px solid #eee;
   margin: 5px 15px;
 }
 
+.card-checked {
+  border: 2px solid #0070cc;
+}
+
 .img-container {
-  padding: 10px;
   height: 150px;
   display: flex;
   justify-content: center;
@@ -76,11 +79,11 @@
 }
 
 .width-image {
-  width: 110px;
+  width: 140px;
 }
 
 .height-image {
-  height: 110px;
+  height: 140px;
 }
 
 .original-name {
@@ -117,11 +120,13 @@
 }
 .icon-checked {
   font-family: 'iconfont';
-  font-size: 16px;
+  font-size: 20px;
+  height: 20px;
+  line-height: 20px;
   color: #0070cc;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  left: 0px;
+  top: 0px;
 }
 
 .icon-unchecked {
