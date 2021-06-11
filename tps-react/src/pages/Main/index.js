@@ -162,8 +162,10 @@ class Main extends React.Component {
           </div>
           <div className={styles['upload-container']}>
             <Dragger {...props}>
-              <div>点击或拖拽至此上传</div>
-              <div>仅支持上传 jpg / png / jpeg / webp / git 格式的图片</div>
+              <div className={styles['upload-title']}>点击或拖拽至此上传</div>
+              <div className={styles['upload-description']}>
+                仅支持上传 jpg / png / jpeg / webp / git 格式的图片
+              </div>
             </Dragger>
           </div>
           <div className={styles['gallery-container']}>

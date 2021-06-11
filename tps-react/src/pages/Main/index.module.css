@@ -61,6 +61,16 @@
   margin-left: -400px;
 }
 
+.upload-title {
+  font-size: 22px;
+  color: #41725a;
+}
+
+.upload-description {
+  font-size: 14px;
+  color: #8fc379;
+}
+
 .gallery-container {
   text-align: center;
   background: #d5ecca;
