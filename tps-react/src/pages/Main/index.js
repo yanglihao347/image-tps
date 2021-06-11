@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 import request from '../../utils/request';
 import styles from './index.module.css';
 import ImageCard from './components/ImageCard';
+import Dialog from '../../components/Dialog';
 
 const { Dragger } = Upload;
 
@@ -58,8 +59,59 @@ class Main extends React.Component {
     });
   };
 
-  deleteImage = (img_id) => {
+  deleteImage = (img_ids) => {
+    const { pageNo } = this.state;
     console.log('deleteImage');
+    request.post('/api/tps/deleteImage', { img_ids }).then((res) => {
+      console.log('======deleteImage', res);
+      this.getList(pageNo, 10);
+    });
+  };
+
+  deleteMulti = () => {
+    const { list } = this.state;
+    const ids = list
+      .map((item) => {
+        if (item.checked) {
+          return item.img_id;
+        }
+      })
+      .filter((item) => {
+        return item;
+      });
+    // console.log(ids);
+    this.deleteImage(ids);
+  };
+
+  renderOperateBar = () => {
+    const { list } = this.state;
+    const flag = list.some((item) => {
+      if (item.checked) {
+        return true;
+      }
+    });
+
+    return (
+      <div className={styles['operate-bar']}>
+        {flag ? (
+          <div
+            onClick={() => {
+              Dialog({
+                title: '确认删除吗？',
+                content:
+                  '删除线上正在使用的图片会导致图片不可展示，且不可恢复，请谨慎操作！',
+                okText: '确认',
+                cancelText: '取消',
+                onOk: this.deleteMulti,
+              });
+            }}
+            className={styles['delete-multiple']}
+          >
+            删除选中图片
+          </div>
+        ) : null}
+      </div>
+    );
   };
 
   render() {
@@ -69,6 +121,7 @@ class Main extends React.Component {
     const props = {
       name: 'file',
       action: '/api/tps/upload',
+      multiple: true,
       beforeUpload: () => {
         this.setState({
           isLoading: true,
@@ -114,6 +167,7 @@ class Main extends React.Component {
             </Dragger>
           </div>
           <div className={styles['gallery-container']}>
+            {this.renderOperateBar()}
             <div className={styles['img-list']}>
               {list.map((item, index) => {
                 return (
@@ -128,6 +182,7 @@ class Main extends React.Component {
               })}
             </div>
             <Pagination
+              className={styles['pagination-container']}
               current={this.state.pageNo}
               pageSize={10}
               showSizeChanger={false}

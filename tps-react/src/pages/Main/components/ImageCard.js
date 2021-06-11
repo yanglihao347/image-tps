@@ -25,7 +25,7 @@ class ImageCard extends Component {
 
   imageSize = (item) => {
     let cname = '';
-    if (item.image_width <= 140 && item.image_height <= 140) {
+    if (item.image_width <= 150 && item.image_height <= 150) {
       cname = '';
     } else if (item.image_width <= item.image_height) {
       cname = styles['height-image'];
@@ -43,7 +43,7 @@ class ImageCard extends Component {
       content:
         '删除线上正在使用的图片会导致图片不可展示，且不可恢复，请谨慎操作！',
       onOk: () => {
-        deleteImage(item.img_id);
+        deleteImage([item.img_id]);
       },
     });
   };

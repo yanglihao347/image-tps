@@ -52,11 +52,13 @@ class IotDialog extends Component {
   };
 
   render() {
-    const { title, content } = this.props;
+    const { title, content, okText, cancelText } = this.props;
     return (
       <Modal
         visible={this.state.visible}
         title={title}
+        okText={okText}
+        cancelText={cancelText}
         onClose={wrapper(this.props.onClose, this.close)}
         onCancel={wrapper(this.props.onCancel, this.close)}
         onOk={wrapper(this.props.onOk, this.close)}

@@ -14,8 +14,8 @@ const client = new OSS({
 const getList = async (pageNo, pageSize, username) => {
   client.useBucket('test002-0906');
 
-  const totalSql = `select count(*) from images_table where upload_user='${username}';`;
-  const listSql = `select * from images_table where upload_user='${username}' order by img_id desc limit ${pageSize} offset ${
+  const totalSql = `select count(*) from images_table where is_delete=0 and upload_user='${username}';`;
+  const listSql = `select * from images_table where is_delete=0 and upload_user='${username}' order by img_id desc limit ${pageSize} offset ${
     (pageNo - 1) * pageSize
   };`;
 
@@ -55,7 +55,22 @@ const uploadCloud = async (file, username) => {
   };
 };
 
+const deleteImage = async (img_ids, username) => {
+  let imgIdStr = '(';
+  img_ids.map((id) => {
+    imgIdStr += `img_id=${id} or `;
+  });
+  imgIdStr = imgIdStr.slice(0, -4) + ')';
+  const sql = `update images_table set is_delete=1 where upload_user='${username}' and ${imgIdStr}`;
+  const res = await exec(sql);
+  if (res.changedRows >= 1) {
+    return res;
+  }
+  console.log('=====delete', res);
+};
+
 module.exports = {
   uploadCloud,
   getList,
+  deleteImage,
 };

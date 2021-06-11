@@ -1,68 +1,104 @@
+
+
 .page-wrap {
   width: 100%;
   min-height: 100vh;
-  background: #defbf8;
+  background-image: url('http://test002-0906.oss-cn-hangzhou.aliyuncs.com/b87e93f95e77727fe813804d6ca2877b-1440-960.jpeg');
+  background-color: #5fa280;
+  background-position: center top;
+  background-size: cover;
   padding-top: 20px;
 }
 
 .main-container {
   width: 1000px;
-  min-height: 100vh;
   margin: 0 auto;
-}
-
-.header-container {
-  position: relative;
+  padding-bottom: 50px;
 }
 
 .header {
-  font-size: 48px;
+  font-size: 46px;
+  color: #41725a;
+  font-weight: bold;
   text-align: center;
   margin-bottom: 30px;
 }
 
 .logout-btn {
+  width: 113px;
+  height: 38px;
+  line-height: 38px;
+  background: url('http://test002-0906.oss-cn-hangzhou.aliyuncs.com/9956759c717e9f386beda7afd4579a25-113-38.png');
+  font-size: 20px;
+  color: #41725a;
+  text-align: center;
+  font-weight: bold;
   cursor: pointer;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 20px;
+  top: 20px;
 }
 
 .upload-container {
   position: relative;
-  height: 200px;
-  margin-bottom: 50px;
+  width: 1000px;
+  height: 176px;
+  background-image: url('http://test002-0906.oss-cn-hangzhou.aliyuncs.com/296609bc791e5dbc34ca3931e5aa0106-1000-58.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
 }
 
 .upload-container .drag-container {
-  width: 800px;
-  height: 200px;
+  width: 780px;
+  height: 150px;
+  box-sizing: content-box;
   border: none;
-  border-radius: 20px;
+  border-top: 5px solid #41725a;
+  border-left: 5px solid #41725a;
+  border-right: 5px solid #41725a;
   position: absolute;
   left: 50%;
   margin-left: -400px;
-  background: #68d6cc;
 }
 
 .gallery-container {
   text-align: center;
-  background: #fff;
-  padding: 20px 50px;
-  height: 500px;
+  background: #d5ecca;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.operate-bar {
+  background-color: #bfdaba;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.delete-multiple {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  background-color: #a6c5a7;
+}
+
+.img-list {
+  padding: 40px 40px 20px;
+  height: 444px;
 }
 
 .card-container {
-  height: 180px;
+  height: 178px;
   position: relative;
   float: left;
-  width: 150px;
+  width: 160px;
   cursor: pointer;
   border: 2px solid #eee;
-  margin: 5px 15px;
+  box-sizing: content-box;
+  margin: 0px 10px 20px;
 }
 
 .card-checked {
@@ -70,20 +106,21 @@
 }
 
 .img-container {
-  height: 150px;
+  height: 144px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAChJREFUeNpiPHPmDAMMGBsbw9lMDDgA6RKM%2F%2F%2F%2Fh3POnj1LCzsAAgwAQtYIcFfEyzkAAAAASUVORK5CYII%3D');
 }
 
 .width-image {
-  width: 140px;
+  width: 150px;
 }
 
 .height-image {
-  height: 140px;
+  height: 150px;
 }
 
 .original-name {
@@ -97,12 +134,15 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   padding: 0 10px;
+  background-color: rgba(230, 230, 230, 1);
 }
 
 .icon-groups {
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 34px;
+  line-height: 34px;
   display: flex;
   /* transition: 0.5s all; */
 }
@@ -110,6 +150,8 @@
   flex: 1;
   font-family: 'iconfont';
   font-size: 20px;
+  height: 34px;
+  line-height: 34px;
   color: #000;
   background: rgba(230, 230, 230, 1);
 }
@@ -135,4 +177,8 @@
   position: absolute;
   right: 5px;
   top: 5px;
+}
+
+.pagination-container {
+  margin-bottom: 40px;
 }
