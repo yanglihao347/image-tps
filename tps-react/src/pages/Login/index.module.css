@@ -1,13 +1,16 @@
 .page-wrap {
   width: 100%;
   min-height: 100vh;
-  background: #defbf8;
+  background-image: url('http://test002-0906.oss-cn-hangzhou.aliyuncs.com/b87e93f95e77727fe813804d6ca2877b-1440-960.jpeg');
+  background-color: #5fa280;
+  background-position: center top;
+  background-size: cover;
   padding-top: 200px;
 }
 
 .main-container {
   width: 500px;
-  height: 400px;
+  height: 320px;
   margin: 0 auto;
   background: #fff;
   display: flex;
