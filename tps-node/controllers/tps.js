@@ -15,7 +15,7 @@ const getList = async (pageNo, pageSize, username) => {
   client.useBucket('test002-0906');
 
   const totalSql = `select count(*) from images_table where is_delete=0 and upload_user='${username}';`;
-  const listSql = `select * from images_table where is_delete=0 and upload_user='${username}' order by img_id desc limit ${pageSize} offset ${
+  const listSql = `select img_id, img_url, image_width, image_height, file_name, original_name, upload_time, file_size from images_table where is_delete=0 and upload_user='${username}' order by img_id desc limit ${pageSize} offset ${
     (pageNo - 1) * pageSize
   };`;
 
