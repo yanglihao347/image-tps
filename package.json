@@ -4,7 +4,7 @@
   "description": "1.启动node端 (项目默认启动在5000端口) ``` cd ./tps-node npm i npm run dev ``` 2.启动web端 (默认3000端口) ``` cd ./tps-react npm i  npm run start ```",
   "main": "index.js",
   "scripts": {
-    "server": "cd ./tps-node && npm run dev",
+    "server": "cd ./tps-node && npm run start",
     "start": "cd ./tps-react && npm run start"
   },
   "repository": {
