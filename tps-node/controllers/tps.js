@@ -6,7 +6,8 @@ const { exec } = require('../mysql/index');
 const { accessKeyId, accessKeySecret, link } = require('../config/index');
 
 const client = new OSS({
-  region: 'oss-cn-hangzhou',
+  // region: 'oss-cn-hangzhou',
+  endpoint: 'http://oss-cn-hangzhou-internal.aliyuncs.com',
   accessKeyId,
   accessKeySecret,
 });
